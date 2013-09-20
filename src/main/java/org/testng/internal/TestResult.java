@@ -33,6 +33,7 @@ public class TestResult implements ITestResult {
   transient private Object m_instance;
   private String m_instanceName;
   private ITestContext m_context;
+  private String m_testName;
 
   public TestResult() {
 
@@ -85,7 +86,7 @@ public class TestResult implements ITestResult {
       m_name = m_method.getMethodName();
     } else {
       if (m_instance instanceof ITest) {
-        m_name = ((ITest) m_instance).getTestName();
+        m_name = "Fake"; //((ITest) m_instance).getTestName();
       }
       else {
         String string = m_instance.toString();
@@ -122,10 +123,11 @@ public class TestResult implements ITestResult {
    */
   @Override
   public String getTestName() {
-    if (m_instance instanceof ITest) {
-      return ((ITest) m_instance).getTestName();
+    if (m_testName == null && m_instance instanceof ITest) {
+    	m_testName = ((ITest) m_instance).getTestName();
+    	m_name = m_testName;
     }
-    return null;
+    return m_testName;
   }
 
   @Override

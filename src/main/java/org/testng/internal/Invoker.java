@@ -798,6 +798,8 @@ public class Invoker implements IInvoker {
       // Reset the test result last. If we do this too early, Reporter.log()
       // invocations from listeners will be discarded
       Reporter.setCurrentTestResult(null);
+
+      testResult.getTestName();
     }
 
     return testResult;
