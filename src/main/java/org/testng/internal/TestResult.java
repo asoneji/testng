@@ -85,10 +85,6 @@ public class TestResult implements ITestResult {
     if (m_instance == null) {
       m_name = m_method.getMethodName();
     } else {
-      if (m_instance instanceof ITest) {
-        m_name = "Fake"; //((ITest) m_instance).getTestName();
-      }
-      else {
         String string = m_instance.toString();
         // Only display toString() if it's been overridden by the user
         m_name = getMethod().getMethodName();
@@ -103,7 +99,6 @@ public class TestResult implements ITestResult {
         }
         catch(NoSuchMethodException ignore) {
           // ignore
-        }
       }
     }
   }
@@ -123,11 +118,15 @@ public class TestResult implements ITestResult {
    */
   @Override
   public String getTestName() {
-    if (m_testName == null && m_instance instanceof ITest) {
+	if (m_testName != null) {
+		return m_testName;
+	}
+	else if (m_instance instanceof ITest) {
     	m_testName = ((ITest) m_instance).getTestName();
     	m_name = m_testName;
+    	return m_testName;
     }
-    return m_testName;
+    return null;
   }
 
   @Override
